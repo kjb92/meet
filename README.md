@@ -85,10 +85,18 @@ When the user hasn't selected a specific city and wants to compare the number of
 
 # Built with
 - React
+- AWS Lambda
+
+## Serverless
+The "Meet" app is using an API provided by Google Calendar that will be used for retrieving data about upcoming events based on a user's location. Therefore, I have created a serverless function to generate an authorization token using the OAuth framework, which will determine that my app users are authorized to see the event data from the Google API.
+Written with Node/Express as Lambda functions, my backend server logic is hosted on AWS and handles requests that come from my React frontend.
+
+
 
 ## Dependencies
 - `react` to use the react library
 - `react-bootstrap` to use the react version of bootstrap modules
 - `react-dom` to use as entry point to the DOM, intended to be paired with `react`
 - `Jest` as JS testing framework
+- `AWS Lamda` as my backend server logic
 
