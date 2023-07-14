@@ -68,3 +68,48 @@ module.exports.getAccessToken = async (event) => {
     };
   });
 };
+
+module.exports.getCalendarEvents = async (event) => {
+  //VARIABLES
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`); //template literal ensures string format
+
+  return new Promise((resolve, reject) => {
+    //CODE
+    oAuth2Client.setCredentials({ access_token });
+    
+    calendar.events.list(
+      {
+        calendarId: CALENDAR_ID,
+        auth: oAuth2Client,
+        timeMin: new Date().toISOString(),
+        singleEvents: true,
+        orderBy: "startTime",
+      },
+      (error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      }
+    );
+  })
+  .then((results) => {
+    //Respond with ...
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: JSON.stringify({ events: results.data.items }),
+    };
+  })
+  .catch((err) => {
+    //Handle error
+    return {
+      statusCode: 500,
+      body: JSON.stringify(err),
+    };
+  });
+};
