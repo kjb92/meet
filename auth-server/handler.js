@@ -31,3 +31,40 @@ module.exports.getAuthURL = async () => {
     }),
   };
 };
+
+module.exports.getAccessToken = async (event) => {
+  //Decode authorization code extracted from the URL query
+  const code = decodeURIComponent(`${event.pathParameters.code}`); //template literal ensures string format
+
+  return new Promise((resolve, reject) => {
+    /**
+     *  Exchange authorization code for access token with a “callback” after the exchange,
+     *  The callback in this case is an arrow function with the results as parameters: “error” and “response”
+     */
+
+    oAuth2Client.getToken(code, (err, response) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(response);
+    }); 
+  })
+  .then((results) => {
+    //Respond with OAuth token
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: JSON.stringify(results),
+    };
+  })
+  .catch((err) => {
+    //Handle error
+    return {
+      statusCode: 500,
+      body: JSON.stringify(err),
+    };
+  });
+};
