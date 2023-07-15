@@ -45,19 +45,17 @@ describe('<Event /> component', () => {
   
 
   //Test 6
-  test('show the event details section when user clicks on "show details"', async () => {
-    //code
+  test('toggle (show / hide) the event details section when user clicks on "show / hide details"', async () => {
+    //Part 1: Show event details section
+    let eventDetailsElement;
     const user = userEvent.setup();
-    user.click(EventComponent.getByText('show details'));
-    expect(EventComponent.container.querySelector('.event-details')).not.toBeNull();
+    await user.click(EventComponent.getByText('show details'));
+    eventDetailsElement = EventComponent.container.querySelector('#event-details');
+    expect(eventDetailsElement).not.toBeNull();
+    
+    //Part 2: Hide event details section
+    await user.click(EventComponent.getByText('hide details'));
+    eventDetailsElement = EventComponent.container.querySelector('#event-details');
+    expect(eventDetailsElement).toBeNull();
   });
-
-  //Test 7
-  test('hide the event details section when user clicks on "hide details"', async () => {
-    //code
-    const user = userEvent.setup();
-    user.click(EventComponent.getByText('hide details'));
-    expect(EventComponent.container.querySelector('.event-details')).toBeNull();
-  });
-
 });
