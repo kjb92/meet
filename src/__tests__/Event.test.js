@@ -14,7 +14,7 @@ describe('<Event /> component', () => {
   });
 
   beforeEach(() => {
-    EventComponent = render(<Event />);
+    EventComponent = render(<Event event={allEvents[0]}/>);
   });
   
   //Test 1

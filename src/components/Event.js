@@ -1,6 +1,11 @@
-const Event = () => {
+const Event = ( {event} ) => {
   return (
-    <li></li>
+    <li>
+      <h2>{event.summary}</h2>
+      <p>{event.start.dateTime}</p>
+      <p>{event.location}</p>
+      <button>show details</button>
+    </li>
   )
 };
 
