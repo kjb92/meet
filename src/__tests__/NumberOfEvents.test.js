@@ -10,7 +10,7 @@ describe('<NumberOfEvents /> component', () => {
   let numberTextBox;
   beforeEach(() => {
     NumberOfEventsComponent = render(<NumberOfEvents />);
-    numberTextBox = NumberOfEventsComponent.container.querySelector('#number-of-events-input');
+    numberTextBox = NumberOfEventsComponent.queryByRole('textbox');
   });
   
   //Test 1
