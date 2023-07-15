@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import Event from '../components/Event';
 import { getEvents } from '../api';
+import userEvent from '@testing-library/user-event';
 
 
 //Describe the scope
@@ -36,4 +37,27 @@ describe('<Event /> component', () => {
   test('renders event details button with the title "show details"', () => {
     expect(EventComponent.queryByText('show details')).toBeInTheDocument();
   });
+
+  //Test 5
+  test('by default, event details should be hidden', () => {
+    expect(EventComponent.container.querySelector('.event-details')).toBeNull();
+  });
+  
+
+  //Test 6
+  test('show the event details section when user clicks on "show details"', async () => {
+    //code
+    const user = userEvent.setup();
+    user.click(EventComponent.getByText('show details'));
+    expect(EventComponent.container.querySelector('.event-details')).not.toBeNull();
+  });
+
+  //Test 7
+  test('hide the event details section when user clicks on "hide details"', async () => {
+    //code
+    const user = userEvent.setup();
+    user.click(EventComponent.getByText('hide details'));
+    expect(EventComponent.container.querySelector('.event-details')).toBeNull();
+  });
+
 });
