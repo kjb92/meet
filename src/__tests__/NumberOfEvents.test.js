@@ -19,4 +19,9 @@ describe('<NumberOfEvents /> component', () => {
     expect(numberTextBox).toHaveClass('number-of-events');
   });
 
+  // Test 2
+  test('default value of number input is 32', () => {
+    expect(numberTextBox).toHaveValue('32');
+  });
+
 });
