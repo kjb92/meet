@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const NumberOfEvents = () => {
-  const [numberOfEvents, setNumberOfEvents] = useState(32);
+  const [numberOfEvents, setNumberOfEvents] = useState('32');
 
   //Hanlde input change
   const handleInputChange = (event) => {
