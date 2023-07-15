@@ -30,7 +30,7 @@ describe('<NumberOfEvents /> component', () => {
     const user = userEvent.setup();
 
     //user types "10" in number input
-    await user.type(numberTextBox, '10');
+    await user.type(numberTextBox, '{backspace}{backspace}10');
 
     //expect number input to have value of "10"
     expect(numberTextBox).toHaveValue('10');
