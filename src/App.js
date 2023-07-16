@@ -16,15 +16,15 @@ function App() {
   const [numberOfEvents, setNumberOfEvents] = useState('32');
 
   //Get all events function
-  async function getAllEvents() {
-    const eventList = await getEvents();
-    setEvents(eventList);
-    setLocations(extractLocations(eventList));
+  const fetchData = async () => {
+    const allEvents = await getEvents();
+    setEvents(allEvents.slice(0, numberOfEvents));
+    setLocations(extractLocations(allEvents));
   };
 
   //useEffect: Get all events
   useEffect(() => {
-    getAllEvents();
+    fetchData();
   }, []);
   
   //Handle number of events change
@@ -39,7 +39,7 @@ function App() {
         numberOfEvents={numberOfEvents}
         handleNumberOfEventsChange={handleNumberOfEventsChange}
       />
-      <EventList events={events.slice(0, numberOfEvents)}/>
+      <EventList events={events}/>
     </div>
   );
 }
