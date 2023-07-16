@@ -29,11 +29,12 @@ function App() {
   //useEffect: fetchData
   useEffect(() => {
     fetchData();
-  }, [currentCity]);
+  }, [currentCity, numberOfEvents]);
   
   //Handle number of events change
   const handleNumberOfEventsChange = (newNumber) => {
-    setNumberOfEvents(newNumber);
+    const newNumberInteger = Number(newNumber);
+    setNumberOfEvents(newNumberInteger);
   };
 
   return (
