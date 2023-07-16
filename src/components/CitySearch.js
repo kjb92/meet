@@ -1,7 +1,7 @@
 import { useState, useEffect } from'react';
 
 
-const CitySearch = ({ allLocations }) => {
+const CitySearch = ({ allLocations, setCurrentCity }) => {
   //true / false state
   const [showSuggestions, setShowSuggestions] = useState(false);
   //query state
@@ -23,7 +23,8 @@ const CitySearch = ({ allLocations }) => {
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
-    setShowSuggestions(false); // to hide the list
+    setShowSuggestions(false); //to hide the list
+    setCurrentCity(value); //to select the current city
   };
 
   //Update suggestions every time the allLocations array changes

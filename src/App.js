@@ -14,18 +14,22 @@ function App() {
   const [events, setEvents] = useState([]);
   const [allLocations, setAllLocations] = useState([]);
   const [numberOfEvents, setNumberOfEvents] = useState('32');
+  const [currentCity, setCurrentCity] = useState('See all cities');
 
   //Get all events function
   const fetchData = async () => {
     const allEvents = await getEvents();
+    const filteredEvents = currentCity === "See all cities" ?
+    allEvents :
+    allEvents.filter(event => event.location === currentCity)
     setEvents(allEvents.slice(0, numberOfEvents));
     setAllLocations(extractLocations(allEvents));
   };
 
-  //useEffect: Get all events
+  //useEffect: fetchData
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentCity]);
   
   //Handle number of events change
   const handleNumberOfEventsChange = (newNumber) => {
@@ -34,7 +38,7 @@ function App() {
 
   return (
     <div className="App">
-      <CitySearch allLocations={allLocations}/>
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity}/>
       <NumberOfEvents 
         numberOfEvents={numberOfEvents}
         handleNumberOfEventsChange={handleNumberOfEventsChange}
