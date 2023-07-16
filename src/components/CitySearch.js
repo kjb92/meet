@@ -1,4 +1,4 @@
-import { useState } from'react';
+import { useState, useEffect } from'react';
 
 
 const CitySearch = ({ allLocations }) => {
@@ -25,6 +25,11 @@ const CitySearch = ({ allLocations }) => {
     setQuery(value);
     setShowSuggestions(false); // to hide the list
   };
+
+  //Update suggestions every time the allLocations array changes
+  useEffect(() => {
+    setSuggestions(allLocations);
+  }, [`${allLocations}`]); //compare string representations of the arrays, not their memory references
 
   return (
     <div id="city-search">

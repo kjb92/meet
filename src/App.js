@@ -12,14 +12,14 @@ import { getEvents, extractLocations } from "./api";
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [locations, setLocations] = useState([]);
+  const [allLocations, setAllLocations] = useState([]);
   const [numberOfEvents, setNumberOfEvents] = useState('32');
 
   //Get all events function
   const fetchData = async () => {
     const allEvents = await getEvents();
     setEvents(allEvents.slice(0, numberOfEvents));
-    setLocations(extractLocations(allEvents));
+    setAllLocations(extractLocations(allEvents));
   };
 
   //useEffect: Get all events
@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <CitySearch allLocations={locations}/>
+      <CitySearch allLocations={allLocations}/>
       <NumberOfEvents 
         numberOfEvents={numberOfEvents}
         handleNumberOfEventsChange={handleNumberOfEventsChange}
