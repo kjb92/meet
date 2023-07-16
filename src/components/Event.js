@@ -15,7 +15,9 @@ const Event = ({ event }) => {
       {showDetails === true ? (
         <>
           <button id="hide-details" onClick={toggleDetails}>hide details</button>
-          <div id="event-details"></div>
+          <div id="event-details">
+            <p>{event.description}</p>
+          </div>
         </>
       ) : (
         <button id="show-details" onClick={toggleDetails}>show details</button>
