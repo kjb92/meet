@@ -21,18 +21,29 @@ describe('<NumberOfEvents /> component', () => {
 
   // Test 2
   test('default value of number input is 32', () => {
+    NumberOfEventsComponent.rerender(<NumberOfEvents numberOfEvents='32' />);
     expect(numberTextBox).toHaveValue('32');
   });
 
-  //Test 3 
+  //Test 3
   test('updates number of events when user types in number input', async () => {
     //Setup the object that will represent the user for testing purposes
     const user = userEvent.setup();
 
+    // Create a mock function for handleNumberOfEventsChange
+    const handleNumberOfEventsChange = jest.fn();
+    
+    NumberOfEventsComponent.rerender(
+      <NumberOfEvents 
+        numberOfEvents='32' 
+        handleNumberOfEventsChange={handleNumberOfEventsChange}
+        />
+    );
+
     //user types "10" in number input
     await user.type(numberTextBox, '{backspace}{backspace}10');
 
-    //expect number input to have value of "10"
-    expect(numberTextBox).toHaveValue('10');
+    // Expect the handleNumberOfEventsChange function to have been called with the new value
+    expect(handleNumberOfEventsChange).toHaveBeenCalledWith('10');
   });
 });
