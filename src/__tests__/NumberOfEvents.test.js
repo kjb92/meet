@@ -1,10 +1,11 @@
-import { render } from '@testing-library/react';
+import { render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NumberOfEvents from '../components/NumberOfEvents';
+import App from '../App';
 import { getEvents } from '../api';
 
 
-//Describe the scope
+//Scope 1
 describe('<NumberOfEvents /> component', () => {  
   let NumberOfEventsComponent;
   let numberTextBox;
@@ -24,26 +25,24 @@ describe('<NumberOfEvents /> component', () => {
     NumberOfEventsComponent.rerender(<NumberOfEvents numberOfEvents='32' />);
     expect(numberTextBox).toHaveValue('32');
   });
+});
 
-  //Test 3
+//Scope 2
+describe('<NumberOfEvents /> integration', () => {
+  //Test 1
   test('updates number of events when user types in number input', async () => {
-    //Setup the object that will represent the user for testing purposes
     const user = userEvent.setup();
+    const AppComponent = render(<App />);
+    const AppDOM = AppComponent.container.firstChild;
 
-    // Create a mock function for handleNumberOfEventsChange
-    const handleNumberOfEventsChange = jest.fn();
-    
-    NumberOfEventsComponent.rerender(
-      <NumberOfEvents 
-        numberOfEvents='32' 
-        handleNumberOfEventsChange={handleNumberOfEventsChange}
-        />
-    );
+    const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
+    const NumberOfEventsInput = within(NumberOfEventsDOM).queryByRole('textbox');
 
-    //user types "10" in number input
-    await user.type(numberTextBox, '{backspace}{backspace}10');
+    await user.type(NumberOfEventsInput, '{backspace}{backspace}10');
 
-    // Expect the handleNumberOfEventsChange function to have been called with the new value
-    expect(handleNumberOfEventsChange).toHaveBeenCalledWith('10');
+    const EventListDOM = AppDOM.querySelector('#event-list');
+    const allRenderedEventItems = within(EventListDOM).queryAllByRole('listitem');   
+
+    expect(allRenderedEventItems.length).toBe(NumberOfEventsInput.value);
   });
 });
