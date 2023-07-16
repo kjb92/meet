@@ -10,7 +10,7 @@ describe('<CitySearch /> component', () => {
   let CitySearchComponent;
   let cityTextBox;
   beforeEach(() => {
-    CitySearchComponent = render(<CitySearch />);
+    CitySearchComponent = render(<CitySearch allLocations={[]} />);
     cityTextBox = CitySearchComponent.queryByRole('textbox');
   });
   
