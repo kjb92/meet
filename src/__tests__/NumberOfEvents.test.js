@@ -43,6 +43,6 @@ describe('<NumberOfEvents /> integration', () => {
     const EventListDOM = AppDOM.querySelector('#event-list');
     const allRenderedEventItems = within(EventListDOM).queryAllByRole('listitem');   
 
-    expect(allRenderedEventItems.length).toBe(NumberOfEventsInput.value);
+    expect(allRenderedEventItems.length).toBe(Number(NumberOfEventsInput.value));
   });
 });
