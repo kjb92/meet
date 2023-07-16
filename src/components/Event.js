@@ -12,15 +12,17 @@ const Event = ({ event }) => {
       <h2>{event.summary}</h2>
       <p>{event.start.dateTime}</p>
       <p>{event.location}</p>
-      {showDetails === true ? (
-        <>
-          <button id="hide-details" className="details-btn" onClick={toggleDetails}>hide details</button>
-          <div id="event-details">
-            <p>{event.description}</p>
-          </div>
-        </>
-      ) : (
-        <button id="show-details" className="details-btn" onClick={toggleDetails}>show details</button>
+      <button
+        id={showDetails ? "hide-details" : "show-details"}
+        className="details-btn"
+        onClick={toggleDetails}
+      >
+        {showDetails ? "hide details" : "show details"}
+      </button>
+      {showDetails && (
+        <div id="event-details">
+          <p>{event.description}</p>
+        </div>
       )}
     </li>
   );
