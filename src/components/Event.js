@@ -20,7 +20,7 @@ const Event = ({ event }) => {
         {showDetails ? "hide details" : "show details"}
       </button>
       {showDetails && (
-        <div id="event-details">
+        <div className="event details" id="event-details">
           <p>{event.description}</p>
         </div>
       )}
