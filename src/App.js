@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from "react"; 
+//Import EventList component
+import EventList from './components/EventList';
+//Import CitySearch component
+import CitySearch from './components/CitySearch';
+//Import NumberOfEvents component
+import NumberOfEvents from './components/NumberOfEvents';
+//Import getEvents & extractLocations
+import { getEvents, extractLocations } from "./api";
+
 
 function App() {
+  const [events, setEvents] = useState([]);
+  const [allLocations, setAllLocations] = useState([]);
+  const [numberOfEvents, setNumberOfEvents] = useState('32');
+  const [currentCity, setCurrentCity] = useState('See all cities');
+
+  //Get all events function
+  const fetchData = async () => {
+    const allEvents = await getEvents();
+    const filteredEvents = currentCity === "See all cities" ?
+    allEvents :
+    allEvents.filter(event => event.location === currentCity)
+    setEvents(filteredEvents.slice(0, numberOfEvents));
+    setAllLocations(extractLocations(allEvents));
+  };
+
+  //useEffect: fetchData
+  useEffect(() => {
+    fetchData();
+  }, [currentCity, numberOfEvents]);
+  
+  //Handle number of events change
+  const handleNumberOfEventsChange = (newNumber) => {
+    const newNumberInteger = Number(newNumber);
+    setNumberOfEvents(newNumberInteger);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity}/>
+      <NumberOfEvents 
+        numberOfEvents={numberOfEvents}
+        handleNumberOfEventsChange={handleNumberOfEventsChange}
+      />
+      <EventList events={events}/>
     </div>
   );
 }
