@@ -1,7 +1,7 @@
 import { useState, useEffect } from'react';
 
 
-const CitySearch = ({ allLocations, setCurrentCity }) => {
+const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
   //true / false state
   const [showSuggestions, setShowSuggestions] = useState(false);
   //query state
@@ -17,6 +17,15 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     }) : [];
     setQuery(value);
     setSuggestions(filteredLocations);
+
+    //Check whether to display an InfoAlert
+    let infoText;
+    if (filteredLocations.length === 0) {
+      infoText = "We can not find the city you are looking for. Please try another city"
+    } else {
+      infoText = ""
+    }
+    setInfoAlert(infoText);
   };
 
   //Handle item clicked
@@ -25,6 +34,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     setQuery(value);
     setShowSuggestions(false); //to hide the list
     setCurrentCity(value); //to select the current city
+    setInfoAlert(""); //Call setInfoAlert with an empty string to not show when "See all cities" is clicked
   };
 
   //Update suggestions every time the allLocations array changes

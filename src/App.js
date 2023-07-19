@@ -8,6 +8,8 @@ import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 //Import getEvents & extractLocations
 import { getEvents, extractLocations } from "./api";
+//Import InfoAlert
+import { InfoAlert } from './components/Alert';
 
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
   const [allLocations, setAllLocations] = useState([]);
   const [numberOfEvents, setNumberOfEvents] = useState('32');
   const [currentCity, setCurrentCity] = useState('See all cities');
+  const [infoAlert, setInfoAlert] = useState('');
 
   //Get all events function
   const fetchData = async () => {
@@ -39,7 +42,14 @@ function App() {
 
   return (
     <div className="App">
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity}/>
+      <div className="alerts-container">
+        {infoAlert.length ? <InfoAlert text={infoAlert}/> : null}
+      </div>
+      <CitySearch 
+        allLocations={allLocations} 
+        setCurrentCity={setCurrentCity} 
+        setInfoAlert={setInfoAlert}
+      />
       <NumberOfEvents 
         numberOfEvents={numberOfEvents}
         handleNumberOfEventsChange={handleNumberOfEventsChange}
