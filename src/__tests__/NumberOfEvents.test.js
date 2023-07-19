@@ -10,7 +10,10 @@ describe('<NumberOfEvents /> component', () => {
   let NumberOfEventsComponent;
   let numberTextBox;
   beforeEach(() => {
-    NumberOfEventsComponent = render(<NumberOfEvents />);
+    NumberOfEventsComponent = render(<NumberOfEvents 
+      handleNumberOfEventsChange={() => { }}
+      setErrorAlert={() => { }}
+    />);
     numberTextBox = NumberOfEventsComponent.queryByRole('textbox');
   });
   
@@ -22,7 +25,11 @@ describe('<NumberOfEvents /> component', () => {
 
   // Test 2
   test('default value of number input is 32', () => {
-    NumberOfEventsComponent.rerender(<NumberOfEvents numberOfEvents='32' />);
+    NumberOfEventsComponent.rerender(<NumberOfEvents 
+      numberOfEvents='32' 
+      handleNumberOfEventsChange={() => { }}
+      setErrorAlert={() => { }}
+    />);
     expect(numberTextBox).toHaveValue('32');
   });
 });

@@ -7,7 +7,7 @@ const NumberOfEvents = ( {numberOfEvents, handleNumberOfEventsChange, setErrorAl
       let errorText;
       if (isNaN(value)) {
         errorText = "The value you enter has to be a number. Please try again";
-      } else if (Number(value) <= 0) {
+      } else if (Number(value) < 0) {
         errorText = "The value you enter has to be greater than 0. Please try again";
       } else {
         errorText = "";
@@ -24,7 +24,7 @@ const NumberOfEvents = ( {numberOfEvents, handleNumberOfEventsChange, setErrorAl
         className="number-of-events" 
         value={numberOfEvents}
         onChange={handleInputChange}
-        />
+      />
     </div>
   );
 };
