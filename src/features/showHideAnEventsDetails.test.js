@@ -3,6 +3,15 @@ import { render, waitFor, within, screen } from '@testing-library/react';
 import { toHaveValue } from '@testing-library/jest-dom/matchers';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
+// Import the ResizeObserver polyfill
+import 'resize-observer-polyfill';
+
+// Mock ResizeObserver
+window.ResizeObserver = jest.fn(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
 
 const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
 
