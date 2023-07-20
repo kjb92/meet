@@ -6,6 +6,8 @@ import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 //Import NumberOfEvents component
 import NumberOfEvents from './components/NumberOfEvents';
+//Import CityEventsChart
+import CityEventsChart from './components/CityEventsChart';
 //Import getEvents & extractLocations
 import { getEvents, extractLocations } from "./api";
 //Import InfoAlert
@@ -65,6 +67,10 @@ function App() {
         numberOfEvents={numberOfEvents}
         handleNumberOfEventsChange={handleNumberOfEventsChange}
         setErrorAlert={setErrorAlert}
+      />
+      <CityEventsChart 
+        allLocations={allLocations}
+        events={events}
       />
       <EventList events={events}/>
     </div>
