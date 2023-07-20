@@ -1,23 +1,69 @@
 # meet app
 
 The objective of this repo is to build a serverless, progressive web application (PWA) with React using a
-test-driven development (TDD) technique. The application uses the Google
-Calendar API to fetch upcoming events.
+test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events.
 
 
 # Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Features](#features)
-3. [Built With](#built-with)
+2. [Technical Requirements](#technical-requirements)
+3. [Features](#features)
+4. [Built With](#built-with)
 
 
 # Getting started
 
-Coming soon
+## Live Test-Version
+For a live test version of the API, simply go to `https://kjb92.github.io/meet/`
+You will need a Google Account to login and test the app
 
+## Clone the repo
+Follow the instructions below to get a copy of the project up and running on your local machine for development and testing purposes:
+
+1. Open your terminal and navigate to the directory where you want to clone the repository.
+2. Clone the repository:
+```bash
+git clone https://github.com/kjb92/meet.git
+```
+
+2. Navigate to the root directory of the project.
+3. Run `npm install` to install all dependencies.
+4. Run parcel to build the project with `npm run start`
+5. Open a web browser and navigate to `http://localhost:1234` to access the front-end
+
+
+# Technical requirements
+- The app must be a React application.
+- The app must be built using the TDD technique.
+- The app must use the Google Calendar API and OAuth2 authentication flow.
+- The app must use serverless functions (AWS lambda is preferred) for the authorization server
+instead of using a traditional server.
+- The app’s code must be hosted in a Git repository on GitHub.
+- The app must work on the latest versions of Chrome, Firefox, Safari, Edge, and Opera, as well
+as on IE11.
+- The app must display well on all screen sizes (including mobile and tablet) widths of 1920px
+and 320px.
+- The app must pass Lighthouse’s PWA checklist.
+- The app must work offline or in slow network conditions with the help of a service worker.
+- Users may be able to install the app on desktop and add the app to their home screen on
+mobile.
+- The app must be deployed on GitHub Pages.
+- The app must implement an alert system using an OOP approach to show information to the
+user.
+- The app must make use of data visualization.
+- The app must be covered by tests with a coverage rate >= 90%.
+- The app must be monitored using an online performance monitoring tool.
 
 # Features
+In this Meet App users are able to
+- Filter Events by City.
+- Show/Hide Event Details.
+- Specify Number of Events.
+- Use the App When Offline.
+- Add an App Shortcut to the Home Screen.
+- Display Charts Visualizing Event Details.
+
 
 ## FEATURE 1: Filter events by city.
 
@@ -92,11 +138,13 @@ The "Meet" app is using an API provided by Google Calendar that will be used for
 Written with Node/Express as Lambda functions, my backend server logic is hosted on AWS and handles requests that come from my React frontend.
 
 
-
 ## Dependencies
 - `react` to use the react library
 - `react-bootstrap` to use the react version of bootstrap modules
 - `react-dom` to use as entry point to the DOM, intended to be paired with `react`
 - `Jest` as JS testing framework
-- `AWS Lamda` as my backend server logic
+- `testing-library` as React testing framework
+- `AWS Lamda` as backend server logic
+- `atatus-spa` as browser monitoring service
+- `recharts` for data visualization
 
