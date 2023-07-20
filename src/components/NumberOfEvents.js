@@ -18,7 +18,7 @@ const NumberOfEvents = ( {numberOfEvents, handleNumberOfEventsChange, setErrorAl
   
   return (
     <div id="number-of-events">
-      <p role="label" for="number-of-events-input">Number of Events</p>
+      <p role="label" htmlFor="number-of-events-input">Number of Events</p>
       <input 
         type="text" 
         id="number-of-events-input" 
