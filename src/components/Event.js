@@ -8,19 +8,21 @@ const Event = ({ event }) => {
   };
 
   return (
-    <li>
+    <li className="event">
       <h2>{event.summary}</h2>
       <p>{event.start.dateTime}</p>
       <p>{event.location}</p>
-      {showDetails === true ? (
-        <>
-          <button id="hide-details" onClick={toggleDetails}>hide details</button>
-          <div id="event-details">
-            <p>{event.description}</p>
-          </div>
-        </>
-      ) : (
-        <button id="show-details" onClick={toggleDetails}>show details</button>
+      <button
+        id={showDetails ? "hide-details" : "show-details"}
+        className="details-btn"
+        onClick={toggleDetails}
+      >
+        {showDetails ? "hide details" : "show details"}
+      </button>
+      {showDetails && (
+        <div className="event details" id="event-details">
+          <p>{event.description}</p>
+        </div>
       )}
     </li>
   );

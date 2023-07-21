@@ -12,34 +12,39 @@ import { getEvents, extractLocations } from "./api";
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [locations, setLocations] = useState([]);
+  const [allLocations, setAllLocations] = useState([]);
   const [numberOfEvents, setNumberOfEvents] = useState('32');
+  const [currentCity, setCurrentCity] = useState('See all cities');
 
   //Get all events function
-  async function getAllEvents() {
-    const eventList = await getEvents();
-    setEvents(eventList);
-    setLocations(extractLocations(eventList));
+  const fetchData = async () => {
+    const allEvents = await getEvents();
+    const filteredEvents = currentCity === "See all cities" ?
+    allEvents :
+    allEvents.filter(event => event.location === currentCity)
+    setEvents(filteredEvents.slice(0, numberOfEvents));
+    setAllLocations(extractLocations(allEvents));
   };
 
-  //useEffect: Get all events
+  //useEffect: fetchData
   useEffect(() => {
-    getAllEvents();
-  }, []);
+    fetchData();
+  }, [currentCity, numberOfEvents]);
   
   //Handle number of events change
   const handleNumberOfEventsChange = (newNumber) => {
-    setNumberOfEvents(newNumber);
+    const newNumberInteger = Number(newNumber);
+    setNumberOfEvents(newNumberInteger);
   };
 
   return (
     <div className="App">
-      <CitySearch allLocations={locations}/>
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity}/>
       <NumberOfEvents 
         numberOfEvents={numberOfEvents}
         handleNumberOfEventsChange={handleNumberOfEventsChange}
       />
-      <EventList events={events.slice(0, numberOfEvents)}/>
+      <EventList events={events}/>
     </div>
   );
 }
