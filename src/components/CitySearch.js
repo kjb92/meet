@@ -1,7 +1,7 @@
-import { useState } from'react';
+import { useState, useEffect } from'react';
 
 
-const CitySearch = ({ allLocations }) => {
+const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
   //true / false state
   const [showSuggestions, setShowSuggestions] = useState(false);
   //query state
@@ -17,14 +17,30 @@ const CitySearch = ({ allLocations }) => {
     }) : [];
     setQuery(value);
     setSuggestions(filteredLocations);
+
+    //Check whether to display an InfoAlert
+    let infoText;
+    if (filteredLocations.length === 0) {
+      infoText = "We can not find the city you are looking for. Please try another city"
+    } else {
+      infoText = ""
+    }
+    setInfoAlert(infoText);
   };
 
   //Handle item clicked
   const handleItemClicked = (event) => {
     const value = event.target.textContent;
     setQuery(value);
-    setShowSuggestions(false); // to hide the list
+    setShowSuggestions(false); //to hide the list
+    setCurrentCity(value); //to select the current city
+    setInfoAlert(""); //Call setInfoAlert with an empty string to not show when "See all cities" is clicked
   };
+
+  //Update suggestions every time the allLocations array changes
+  useEffect(() => {
+    setSuggestions(allLocations);
+  }, [`${allLocations}`]); //compare string representations of the arrays, not their memory references
 
   return (
     <div id="city-search">
